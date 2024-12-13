@@ -460,8 +460,17 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const hash = '#';
+  const maxLength = 6;
+  const array = arr.map((item) => item.toString(16).toUpperCase());
+  return array.map((item) => {
+    let str = '0';
+    str = str.repeat(maxLength - item.length);
+    if (item.length === maxLength) str = '';
+
+    return hash.concat(str, item);
+  });
 }
 
 /**
@@ -478,8 +487,8 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  return arr.length ? arr.sort((a, b) => b - a).slice(0, n) : [];
 }
 
 /**
@@ -494,8 +503,11 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  return arr1.reduce((acc, item) => {
+    if (arr2.includes(item)) acc.push(item);
+    return acc;
+  }, []);
 }
 
 /**
@@ -509,8 +521,19 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let minElem = nums[0];
+  let maxLength = 0;
+  let maxCoin = 0;
+  return nums.reduce((_, item) => {
+    if (item >= minElem) {
+      maxLength += 1;
+      maxCoin = Math.max(maxCoin, maxLength);
+    } else maxLength = 1;
+    minElem = item;
+
+    return maxCoin;
+  }, 0);
 }
 
 /**
@@ -527,8 +550,10 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce((acc, item, index) => {
+    return acc.concat(Array(index + 1).fill(item));
+  }, []);
 }
 
 /**
